@@ -1,0 +1,65 @@
+{
+  "version": "1.0",
+  "name": "strict",
+  "description": "High-security policy for production and sensitive environments",
+  "filesystem": {
+    "allowed_dirs": ["./project/src"],
+    "blocked_patterns": [
+      "**/.env*",
+      "**/credentials*",
+      "**/.ssh/*",
+      "**/.aws/*",
+      "**/id_rsa*",
+      "**/.gnupg/*",
+      "**/secrets*",
+      "**/.git/*",
+      "**/node_modules/**",
+      "**/__pycache__/**"
+    ],
+    "allow_delete": false,
+    "max_file_size_mb": 5
+  },
+  "execution": {
+    "blocked_commands": [
+      "rm",
+      "curl",
+      "wget",
+      "chmod",
+      "chown",
+      "sudo",
+      "su ",
+      "mkfs",
+      "dd ",
+      "nc ",
+      "netcat",
+      "python -c",
+      "node -e",
+      "eval"
+    ],
+    "allow_network": false,
+    "allow_process_spawn": false,
+    "max_concurrent_processes": 1
+  },
+  "network": {
+    "allowed_hosts": [],
+    "blocked_hosts": ["metadata.google.internal", "169.254.169.254"],
+    "allow_outbound": false
+  },
+  "secrets": {
+    "detect_patterns": [
+      "(?i)(api[_-]?key|secret|token|password|credential|auth)\\s*[=:]\\s*\\S+",
+      "(?i)bearer\\s+[a-zA-Z0-9\\-._~+/]+=*",
+      "ghp_[a-zA-Z0-9]{36}",
+      "sk-[a-zA-Z0-9]{48}",
+      "AKIA[0-9A-Z]{16}",
+      "(?i)(mysql|postgres|mongodb)://\\S+"
+    ],
+    "block_exfiltration": true
+  },
+  "escalation": {
+    "red_threshold": 60,
+    "amber_threshold": 25,
+    "auto_block_on_red": true,
+    "alert_webhook": null
+  }
+}

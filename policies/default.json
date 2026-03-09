@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "name": "default",
+  "description": "Standard security policy for autonomous AI agent auditing",
+  "filesystem": {
+    "allowed_dirs": ["./project", "./src", "./tests", "./docs"],
+    "blocked_patterns": [
+      "**/.env*",
+      "**/credentials*",
+      "**/.ssh/*",
+      "**/.aws/*",
+      "**/id_rsa*",
+      "**/.gnupg/*",
+      "**/secrets*",
+      "**/.git/config"
+    ],
+    "allow_delete": false,
+    "max_file_size_mb": 10
+  },
+  "execution": {
+    "blocked_commands": [
+      "rm -rf /",
+      "curl.*\\|.*sh",
+      "wget.*\\|.*sh",
+      "chmod 777",
+      "sudo",
+      "mkfs",
+      "dd if=",
+      ":(){ :|:& };:"
+    ],
+    "allow_network": false,
+    "allow_process_spawn": true,
+    "max_concurrent_processes": 5
+  },
+  "network": {
+    "allowed_hosts": [],
+    "blocked_hosts": ["metadata.google.internal", "169.254.169.254"],
+    "allow_outbound": false
+  },
+  "secrets": {
+    "detect_patterns": [
+      "(?i)(api[_-]?key|secret|token|password|credential)\\s*[=:]\\s*\\S+",
+      "(?i)bearer\\s+[a-zA-Z0-9\\-._~+/]+=*",
+      "ghp_[a-zA-Z0-9]{36}",
+      "sk-[a-zA-Z0-9]{48}",
+      "AKIA[0-9A-Z]{16}"
+    ],
+    "block_exfiltration": true
+  },
+  "escalation": {
+    "red_threshold": 80,
+    "amber_threshold": 40,
+    "auto_block_on_red": false,
+    "alert_webhook": null
+  }
+}
