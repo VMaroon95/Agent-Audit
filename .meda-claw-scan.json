@@ -1,0 +1,18 @@
+{
+  "target": "/Users/MacMini/.openclaw/workspace/agent-audit",
+  "timestamp": 1773162424.180423,
+  "findings": [
+    {
+      "type": "secret",
+      "name": "AWS Key",
+      "file": "cli.py",
+      "count": 1
+    },
+    {
+      "type": "secret",
+      "name": "OpenAI Key",
+      "file": "tests/test_engine.py",
+      "count": 1
+    }
+  ]
+}

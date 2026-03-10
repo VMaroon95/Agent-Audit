@@ -1,5 +1,7 @@
 # 🔍 Agent Audit
 
+> **Part of the [meda-claw](https://github.com/VMaroon95/meda-claw) Governance Stack** — Install the full suite via `pip install meda-claw`
+
 **Behavioral Audit Engine for Autonomous AI Agents**
 
 Real-time forensic monitoring, risk scoring, and tamper-evident audit trails for AI agents operating in your environment. Built for the 2026 agent era — where Codex, Claude Code, and local OS-level agents have file access, shell access, and network access.
